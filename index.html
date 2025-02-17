@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket com PHP</title>
+</head>
+<body>
+    <h1>WebSocket com PHP Puro</h1>
+    <ul id="messages"></ul>
+    <input type="text" id="message" placeholder="Digite sua mensagem">
+    <button onclick="sendMessage()">Enviar</button>
+
+    <script>
+        var ws = new WebSocket("ws://192.168.15.106:8080");
+
+        ws.onopen = function() {
+            console.log("Conectado ao servidor WebSocket.");
+        };
+
+        ws.onmessage = function(event) {
+            var li = document.createElement("li");
+            li.textContent = "Servidor: " + event.data;
+            document.getElementById("messages").appendChild(li);
+        };
+
+        function sendMessage() {
+            var message = document.getElementById("message").value;
+            ws.send(message);
+        }
+    </script>
+</body>
+</html>
